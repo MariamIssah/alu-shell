@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 # This script is displaying "Best School" 10 times
-for Best School in $(seq 1 10);
-echo $"Best School"
+./1-for_best_school {1..10}
+do
+echo "Best School" 
+done
