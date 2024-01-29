@@ -2,14 +2,13 @@
 #Bash script that displays Best School 10 times, but for the 9th iteration, displays Best School and then Hi on a new line.
 
 counter=0
-while [ $counter -le 10 ]
+
+while [ $counter -lt 10 ]
 do
   if [ $counter -eq 9 ]
   then
-    echo "Best School"
     echo "Hi"
-  else
+   fi
     echo "Best School"
-  fi
   ((counter++))
 done
