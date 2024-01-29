@@ -7,7 +7,7 @@ do
   if [ $counter -eq 9 ]
   then
     echo "Best School"
-    echo "Hi!"
+    echo "Hi"
   else
     echo "Best School"
   fi
