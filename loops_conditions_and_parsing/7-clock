@@ -3,16 +3,15 @@
 # Displays hours from 0 to 12
 # Displays minutes from 1 to 59
 
-#!/bin/bash
-
 hour=0
-while [ $hour -lt 12 ]
+while [ $hour -le 12 ]
 do
-    minute=1
-    while [ $minute -lt 60 ]
+    echo "Hour: $hour"
+    minutes=1
+    while [ $minutes -lt 59 ]
     do
-        printf "%02d:%02d\n" $hour $minute
-        minute=$((minute+1))
+	echo "$minutes"
+	((minutes++))
     done
-    hour=$((hour+1))
-done | head -n 70    
+    ((hour++))
+done    
