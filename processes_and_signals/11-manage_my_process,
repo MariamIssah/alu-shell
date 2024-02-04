@@ -1,35 +1,6 @@
 #!/usr/bin/env bash
-# This is the script that writes "I am alive!" to /tmp/my_process
-manage_my_process() {
-  while true; do
+#manage_my_process
+while [[ 1 -eq 1 ]]; do
     echo "I am alive!" >> /tmp/my_process
     sleep 2
-  done
-}
-
-# This is the init script that controls manage_my_process
-case "$1" in
-  start)
-    # Start manage_my_process in the background and save its PID
-    manage_my_process &
-    echo $! > /var/run/my_process.pid
-    echo "manage_my_process started"
-    ;;
-  stop)
-    # Kill manage_my_process using its PID and remove the PID file
-    kill $(cat /var/run/my_process.pid)
-    rm /var/run/my_process.pid
-    echo "manage_my_process stopped"
-    ;;
-  restart)
-    # Stop and start manage_my_process
-    $0 stop
-    $0 start
-    echo "manage_my_process restarted"
-    ;;
-  *)
-    # Display usage information
-    echo "Usage: $0 {start|stop|restart}"
-    exit 1
-    ;;
-esac
+done
