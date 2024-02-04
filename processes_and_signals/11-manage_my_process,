@@ -1,34 +1,35 @@
 #!/usr/bin/env bash
-#Bash script that creates a subprocess
-. /lib/lsb/init-functions
-
-PIDFILE=/var/run/my_process.pid
-
-start() {
-    ./manage_my_process &
-    echo "$!" > "$PIDFILE"
+# This is the script that writes "I am alive!" to /tmp/my_process
+manage_my_process() {
+  while true; do
+    echo "I am alive!" >> /tmp/my_process
+    sleep 2
+  done
 }
 
-stop() {
-    sudo kill -15 "$(cat "$PIDFILE")" && rm -f "$PIDFILE"
-}
-
-case "$1" in 
-    start)
-       start
-       echo "manage_my_process started"
-       ;;
-    stop)
-       stop
-       echo "manage_my_process stopped"
-       ;;
-    restart)
-       stop
-       start
-       echo "manage_my_process restarted"
-       ;;
-    *)
-       echo "Usage: manage_my_process {start|stop|restart}"
+# This is the init script that controls manage_my_process
+case "$1" in
+  start)
+    # Start manage_my_process in the background and save its PID
+    manage_my_process &
+    echo $! > /var/run/my_process.pid
+    echo "manage_my_process started"
+    ;;
+  stop)
+    # Kill manage_my_process using its PID and remove the PID file
+    kill $(cat /var/run/my_process.pid)
+    rm /var/run/my_process.pid
+    echo "manage_my_process stopped"
+    ;;
+  restart)
+    # Stop and start manage_my_process
+    $0 stop
+    $0 start
+    echo "manage_my_process restarted"
+    ;;
+  *)
+    # Display usage information
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
 esac
-
-exit 0
